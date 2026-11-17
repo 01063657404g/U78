@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ببساطة | محاكي اختبار الذكاء البصري – معلم مساعد</title>
+<style>
+:root{--n:#0b1d3a;--n2:#14305e;--g:#d4a017;--g2:#f3d77a}
+*{box-sizing:border-box;margin:0;font-family:Tahoma,'Segoe UI',Arial,sans-serif}
+body{background:linear-gradient(160deg,var(--n),var(--n2));min-height:100vh;color:#fff;padding:12px 12px 90px}
+#app{max-width:640px;margin:auto}
+.card{background:#fff;color:#16213a;border-radius:18px;padding:16px;box-shadow:0 8px 30px #0006;margin-bottom:12px}
+.splash{text-align:center;padding:26px 16px}
+.splash h1{color:var(--g);font-size:26px;margin:8px 0}
+.splash .sub{color:#cfd8ea;margin-bottom:14px;line-height:1.8}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0}
+.chips span{background:#ffffff18;border:1px solid var(--g);border-radius:20px;padding:6px 12px;font-size:14px}
+.cred{color:var(--g2);font-size:14px;line-height:1.9;margin-top:16px}
+.btn{background:linear-gradient(var(--g2),var(--g));color:var(--n);border:0;border-radius:30px;padding:13px 34px;font-size:18px;font-weight:700;cursor:pointer}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:700}
+.tm{background:var(--g);color:var(--n);border-radius:20px;padding:4px 14px;direction:ltr}
+.tm.low{background:#e53935;color:#fff;animation:p 1s infinite}
+@keyframes p{50%{opacity:.5}}
+.bar{height:8px;background:#ffffff30;border-radius:8px;overflow:hidden;margin-bottom:12px}
+.bar i{display:block;height:100%;background:var(--g);transition:.3s}
+.q{font-size:18px;font-weight:700;margin-bottom:12px;text-align:center}
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.bx{background:#f2f1ea;border:2px solid #333;border-radius:4px;width:96px;height:96px;display:flex;align-items:center;justify-content:center}
+.bx.big{width:170px;height:170px;margin:auto}
+.bx.qm{font-size:46px;color:#c62828;font-weight:700}
+.fg{width:100%;height:100%;filter:blur(.45px) contrast(.85);opacity:.88}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-top:14px}
+.o{background:#fff;border:3px solid #cfd5e3;border-radius:12px;padding:6px;cursor:pointer;text-align:center;font-weight:700;color:#14305e}
+.o .bx{width:100%;height:auto;aspect-ratio:1;margin-bottom:4px}
+.o:hover:not(:disabled){border-color:var(--g)}
+.o.ok{border-color:#2e7d32;background:#e8f5e9}.o.bad{border-color:#c62828;background:#ffebee}
+.ex{margin-top:14px;border-radius:12px;padding:12px;line-height:1.9;font-size:15px}
+.ex.ok{background:#e8f5e9;border-right:5px solid #2e7d32}.ex.bad{background:#ffebee;border-right:5px solid #c62828}
+.nx{display:block;margin:14px auto 0}
+.ring{width:170px;height:170px;margin:10px auto;display:block}
+.ring circle{fill:none;stroke-width:14;stroke-linecap:round}
+.res{text-align:center}.res h2{color:var(--n);margin:6px 0}
+.st{display:flex;justify-content:center;gap:18px;margin:10px 0;font-weight:700}
+.map{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:12px 0}
+.map b{width:30px;height:30px;border-radius:8px;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center}
+.wa{position:fixed;bottom:14px;left:14px;right:14px;max-width:420px;margin:auto;background:#25d366;color:#fff;text-decoration:none;font-weight:700;text-align:center;border-radius:40px;padding:13px;box-shadow:0 4px 16px #0008;z-index:9;font-size:16px}
+footer{text-align:center;color:var(--g2);font-size:13px;margin-top:8px}
+</style></head><body>
+<div id="app"></div>
+<a class="wa" href="https://wa.me/201505191893" target="_blank" rel="noopener">💬 للتواصل والاشتراك واتساب: 01505191893</a>
+<script>
+// ===== hand-drawn engine =====
+function R(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+let rnd=R(1);const J=a=>(rnd()-.5)*2*a;
+const f1=n=>n.toFixed(1);
+function ln(x1,y1,x2,y2,j){j=j||1.2;let s='';for(let k=0;k<2;k++)s+='M'+f1(x1+J(j))+' '+f1(y1+J(j))+'Q'+f1((x1+x2)/2+J(j*2))+' '+f1((y1+y2)/2+J(j*2))+' '+f1(x2+J(j))+' '+f1(y2+J(j));return s}
+function poly(p,j){let s='';for(let i=0;i<p.length;i++){const a=p[i],b=p[(i+1)%p.length];s+=ln(a[0],a[1],b[0],b[1],j)}return s}
+const svg=(d,ex)=>'<svg viewBox="0 0 100 100" class="fg"><path d="'+d+'" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>'+(ex||'')+'</svg>';
+const bx=(h,c)=>'<div class="bx '+(c||'')+'">'+h+'</div>';
+function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const AR=['أ','ب','ج','د'];
+function mk(t,f,opts,e){const o=shuf(opts.map((h,i)=>({h,ok:i==0})));const a=o.findIndex(x=>x.ok);return{t,f,o:o.map(x=>x.h),a,e:e(AR[a])}}
+
+// ===== figures =====
+function stairs(h){const n=h.length,c=Math.min(10.5,60/n),x0=(100-n*c)/2,y0=88;let D='';
+ for(let i=0;i<n;i++)for(let j=0;j<h[i];j++){const x=x0+i*c,y=y0-(j+1)*c;D+=poly([[x,y],[x+c,y],[x+c,y+c],[x,y+c]],.8)}
+ const fx=x0+c/2,ty=y0-h[0]*c;D+=ln(fx,ty,fx,ty-12,.5)+poly([[fx,ty-12],[fx+8,ty-9],[fx,ty-6]],.5);return svg(D)}
+function pyr(n,miss){const w=Math.min(11,64/n),hh=8.5;let D='';
+ for(let r=0;r<n;r++)for(let c=0;c<=r;c++){if(miss.some(m=>m[0]==r&&m[1]==c))continue;const x=50-(r+1)*w/2+c*w,y=92-(n-r)*hh;D+=poly([[x,y],[x+w,y],[x+w,y+hh],[x,y+hh]],1.1)}return svg(D)}
+function env(k,f){const S={2:[30,70],3:[24,36,70]}[k];let D=poly([[18,22],[82,22],[82,88],[18,88]],1.5)+ln(18,22,50,56,1.5)+ln(82,22,50,56,1.5)+ln(50,56,50,88,1.2),ex='';
+ S.forEach((x,i)=>{const t=[[x-5,88],[x+5,88],[x+J(1),72]];D+=poly(t,.8);if(f[i])ex+='<path d="M'+t.map(p=>f1(p[0])+' '+f1(p[1])).join('L')+'Z" fill="#111"/>'});return svg(D,ex)}
+function shape(p,rot){const s=p.s,r=26,pts=[];for(let i=0;i<s;i++){const a=rot+i*2*Math.PI/s;pts.push([50+r*Math.cos(a),50+r*Math.sin(a)])}
+ let D=poly(pts,1.3),ex='';
+ if(p.l){const mx=(pts[0][0]+pts[1][0])/2-50,my=(pts[0][1]+pts[1][1])/2-50,L=Math.hypot(mx,my),nx=mx/L,ny=my/L;
+  for(let i=1;i<=p.l;i++){const o=5*i+1;D+=ln(pts[0][0]+nx*o,pts[0][1]+ny*o,pts[1][0]+nx*o,pts[1][1]+ny*o,1.2)}}
+ const O=[[0,0],[7,0],[-7,0],[0,7],[0,-7]];
+ for(let i=0;i<p.d;i++)ex+='<circle cx="'+f1(50+O[i][0]+J(1))+'" cy="'+f1(50+O[i][1]+J(1))+'" r="2.4" fill="#111"/>';
+ return svg(D,ex)}
+
+// ===== question generators =====
+function gStairs(k,hd){rnd=R((hd?900:100)+k*7);const n=hd?6:4+k%2;let h=[],c=n;for(let i=0;i<n;i++){h.push(c);c=Math.max(1,c-(rnd()<(hd?.6:.75)?1:0))}
+ const seen=[JSON.stringify(h)],ds=[];while(ds.length<(hd?3:2)){const d=h.slice(),i=Math.floor(rnd()*n);if(hd&&rnd()<.4&&i<n-1){[d[i],d[i+1]]=[d[i+1],d[i]]}else d[i]=Math.max(1,Math.min(hd?6:5,d[i]+(rnd()<.5?-1:1)));const s=JSON.stringify(d);if(!seen.includes(s)){seen.push(s);ds.push(d)}}
+ const sum=h.reduce((a,b)=>a+b,0);
+ return mk('اختر الشكل المماثل للشكل الأعلى',bx(stairs(h),'big'),[h,...ds].map(x=>bx(stairs(x))),a=>'عدد المربعات في أعمدة الشكل الأصلي من اليسار: '+h.join('، ')+' (المجموع '+sum+' مربعًا). الشكل '+a+' هو الوحيد المطابق تمامًا، أما الباقي فيختلف عنه في عدد مربعات عمود واحد.')}
+function gPyr(k,hd){rnd=R((hd?950:200)+k*11);const n=hd?6:4+k%2;const rp=()=>{const r=1+Math.floor(rnd()*(n-1));return[r,Math.floor(rnd()*(r+1))]};
+ const p=rp();let q=rp();while(hd?q[0]==p[0]:(q[0]==p[0]&&q[1]==p[1]))q=rp();
+ if(hd){const nb=m=>[m[0],m[1]==0?1:m[1]==m[0]?m[0]-1:m[1]+(rnd()<.5?1:-1)];
+  return mk('اختر الشكل المماثل للشكل الأعلى',bx(pyr(n,[p,q]),'big'),[[p,q],[nb(p),q],[p,nb(q)],[p]].map(m=>bx(pyr(n,m))),a=>'الشكل الأصلي ينقصه مربعان: في الصف '+(p[0]+1)+' (المربع '+(p[1]+1)+' من اليسار) وفي الصف '+(q[0]+1)+' (المربع '+(q[1]+1)+' من اليسار). الشكل '+a+' فقط يطابقه؛ في الباقي أحد المربعين الناقصين تغيّر مكانه أو ناقص مربع واحد فقط.')}
+ return mk('اختر الشكل المماثل للشكل الأعلى',bx(pyr(n,[p]),'big'),[[p],[q],[p,q]].map(m=>bx(pyr(n,m))),a=>'الشكل الأصلي هرم من '+n+' صفوف ينقصه مربع واحد في الصف رقم '+(p[0]+1)+' من الأعلى (المربع رقم '+(p[1]+1)+' من اليسار). الشكل '+a+' فقط هو الذي ينقصه المربع نفسه في المكان نفسه.')}
+function gEnv(k){rnd=R(300+k*13);const n=2+k%2;let f=[];for(let i=0;i<n;i++)f.push(rnd()<.5);if(!f.some(x=>x))f[0]=true;
+ const d1=f.slice(),i=Math.floor(rnd()*n);d1[i]=!d1[i];const n2=n==2?3:2,d2=[];for(let j=0;j<n2;j++)d2.push(rnd()<.5);
+ const c=f.filter(x=>x).length;
+ return mk('اختر الشكل المماثل للشكل الأعلى',bx(env(n,f),'big'),[bx(env(n,f)),bx(env(n,d1)),bx(env(n2,d2))],a=>'الشكل الأصلي يحتوي في أسفله على '+n+' مثلثات، المظلل منها '+c+'. الشكل '+a+' يطابقه في العدد وفي أماكن التظليل، بينما يختلف الباقي في التظليل أو في عدد المثلثات.')}
+const NM={s:'عدد الأضلاع',d:'عدد النقاط',l:'عدد الخطوط الموازية'};
+function gOdd(k){rnd=R(400+k*17);const at=['s','d','l','s','d'][k],b={s:3+Math.floor(rnd()*3),d:1+Math.floor(rnd()*2),l:Math.floor(rnd()*3)};
+ const o={...b};o[at]+=1;const B=()=>bx(shape(b,rnd()*6.28)),O=bx(shape(o,rnd()*6.28));
+ return mk('اختر الشكل المختلف عن باقي الأشكال',null,[O,B(),B(),B()],a=>'ثلاثة أشكال لها '+NM[at]+' = '+b[at]+' بغض النظر عن الدوران، أما الشكل '+a+' فله '+NM[at]+' = '+o[at]+' فهو المختلف.')}
+function gSeq(k){rnd=R(500+k*19);const A=[['l'],['d'],['s'],['s','d'],['l','d']][k],S0={s:3,d:1,l:0};
+ const sp=v=>{const p={s:3,d:1,l:0};A.forEach(a=>p[a]=S0[a]+v);return p};
+ const stem='<div class="row">'+[0,1,2].map(v=>bx(shape(sp(v),2.6))).join('')+'<div class="bx qm">؟</div></div>';
+ const ans=sp(3),w=[];if(A.length==1){w.push({...ans,[A[0]]:ans[A[0]]-1},{...ans,[A[0]]:ans[A[0]]+1})}else{w.push({...ans,[A[0]]:ans[A[0]]-1},{...ans,[A[1]]:ans[A[1]]-1})}
+ const rule=A.map(a=>NM[a]).join(' و');
+ return mk('اختر الشكل الذي يكمل التسلسل (؟)',stem,[ans,...w].map(p=>bx(shape(p,2.6))),a=>'في كل خطوة يزيد '+rule+' بمقدار 1، فيصبح في الشكل الرابع: '+A.map(x=>NM[x]+' = '+ans[x]).join('، ')+'. وهذا ينطبق على الشكل '+a+'.')}
+const G=[gStairs,gPyr,gEnv,gOdd,gSeq];
+function gEnvH(k){rnd=R(970+k);let f=[rnd()<.5,rnd()<.5,rnd()<.5];if(f.every(x=>x==f[0]))f=[true,false,true];
+ const ds=[0,1,2].map(i=>{const d=f.slice();d[i]=!d[i];return d});
+ return mk('اختر الشكل المماثل للشكل الأعلى',bx(env(3,f),'big'),[f,...ds].map(x=>bx(env(3,x))),a=>'التظليل من اليسار إلى اليمين: '+f.map(x=>x?'مظلل':'فارغ').join('، ')+'. الشكل '+a+' فقط يطابقه، وفي كل شكل آخر مثلث واحد تغيّر تظليله.')}
+function gOddH(k){rnd=R(980+k*3);const b=[{s:4,d:3,l:1},{s:5,d:1,l:3}][k],o={s:b.s,d:b.l,l:b.d};const B=()=>bx(shape(b,rnd()*6.28));
+ return mk('اختر الشكل المختلف عن باقي الأشكال',null,[bx(shape(o,rnd()*6.28)),B(),B(),B()],a=>'ثلاثة أشكال لها '+b.s+' أضلاع و'+b.d+' نقاط و'+b.l+' خطوط موازية، أما الشكل '+a+' ففيه '+o.d+' نقاط و'+o.l+' خطوط (تبادل العددين) فهو المختلف.')}
+function gSeqH(k){rnd=R(990+k*5);const S=[[['s',3,1],['d',5,-1],['l',0,1]],[['s',7,-1],['d',1,1],['l',1,1]]][k];
+ const sp=v=>{const p={s:3,d:1,l:0};S.forEach(x=>p[x[0]]=x[1]+x[2]*v);return p};
+ const stem='<div class="row">'+[0,1,2].map(v=>bx(shape(sp(v),2.6))).join('')+'<div class="bx qm">؟</div></div>';
+ const ans=sp(3),w=S.map(x=>({...ans,[x[0]]:ans[x[0]]-x[2]}));
+ return mk('اختر الشكل الذي يكمل التسلسل (؟)',stem,[ans,...w].map(p=>bx(shape(p,2.6))),a=>'تتغير ثلاث خصائص معًا في كل خطوة: '+S.map(x=>NM[x[0]]+' '+(x[2]>0?'يزيد':'ينقص')+' 1').join('، ')+'. فيكون الشكل الرابع: '+S.map(x=>NM[x[0]]+' = '+ans[x[0]]).join('، ')+' وهو الشكل '+a+'.')}
+function gRot(){rnd=R(995);const p={s:3,d:1,l:2},r=Math.PI/4,a0=.3,A=v=>a0+v*r;
+ const stem='<div class="row">'+[0,1,2].map(v=>bx(shape(p,A(v)))).join('')+'<div class="bx qm">؟</div></div>';
+ return mk('اختر الشكل الذي يكمل التسلسل (؟)',stem,[A(3),A(4),a0-3*r,A(2)].map(x=>bx(shape(p,x))),a=>'يدور الشكل 45° باتجاه عقارب الساعة في كل خطوة، فبعد ثلاث خطوات يصبح 135° عن وضعه الأول، وهذا هو الشكل '+a+'.')}
+const HG=[()=>gSeqH(0),()=>gStairs(0,1),()=>gPyr(0,1),()=>gOddH(0),gRot,()=>gEnvH(0),()=>gStairs(1,1),()=>gSeqH(1),()=>gPyr(1,1),()=>gOddH(1)];
+
+// ===== quiz logic =====
+let Q=[],cur=0,ans=[],left=600,tm=null,N=25,T=600,MODE=0;
+const $=id=>document.getElementById(id),app=$('app');
+const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+function splash(){clearInterval(tm);app.innerHTML='<div class="card splash" style="background:transparent;box-shadow:none;color:#fff"><div style="font-size:54px">🧠</div><div style="color:var(--g2);font-weight:700">منصة ببساطة</div><h1>محاكي اختبار الذكاء البصري IQ</h1><div class="sub">اختبار الجهاز المركزي للتنظيم والإدارة<br>معلم مساعد – جميع التخصصات</div><div class="chips"><span>📝 25 سؤالًا</span><span>⏱️ 10 دقائق</span><span>✅ تصحيح تلقائي</span><span>💡 شرح بعد كل إجابة</span></div><div class="sub" style="font-size:14px">الأشكال مرسومة بخط اليد بالأبيض والأسود وغير واضحة تمامًا، تمامًا كما في الاختبار الحقيقي — ركّز في التفاصيل الصغيرة!</div><button class="btn" onclick="start(0)">ابدأ الاختبار (25 سؤالًا) ▶</button><br><br><button class="btn" style="background:linear-gradient(#ff8a65,#e53935);color:#fff" onclick="start(1)">🔥 اختبار التحدي: 10 أسئلة أصعب</button><div class="sub" style="font-size:13px;margin-top:6px">أشكال أكثر تعقيدًا – 6 دقائق</div><div class="cred">مقدم من صفحة <b>ببساطة</b><br>إعداد: مستر محمد سيد ومس نورهان إبراهيم</div></div>'}
+function start(m){if(m!==undefined)MODE=m;Q=[];if(MODE)HG.forEach(f=>Q.push(f()));else for(let i=0;i<25;i++)Q.push(G[i%5](i/5|0));N=Q.length;T=MODE?360:600;ans=Array(N).fill(null);cur=0;left=T;clearInterval(tm);tm=setInterval(()=>{left--;const e=$('tm');if(e){e.textContent=fmt(left);e.className='tm'+(left<=60?' low':'')}if(left<=0)finish()},1000);show()}
+function show(){const q=Q[cur],a=ans[cur],done=a!==null;
+ let h='<div class="top"><span>السؤال '+(cur+1)+' / '+N+'</span><span class="tm'+(left<=60?' low':'')+'" id="tm">'+fmt(left)+'</span></div><div class="bar"><i style="width:'+(cur/N*100)+'%"></i></div><div class="card"><div class="q">'+q.t+'</div>'+(q.f||'')+'<div class="opts">';
+ q.o.forEach((o,i)=>{const c=done?(i==q.a?' ok':(i==a?' bad':'')):'';h+='<button class="o'+c+'" '+(done?'disabled':'onclick="pick('+i+')"')+'>'+o+AR[i]+'</button>'});
+ h+='</div>';
+ if(done){const ok=a==q.a;h+='<div class="ex '+(ok?'ok':'bad')+'"><b>'+(ok?'✔ إجابة صحيحة':'✘ إجابة خاطئة — الإجابة الصحيحة: '+AR[q.a])+'</b><br>💡 '+q.e+'</div><button class="btn nx" onclick="next()">'+(cur==N-1?'عرض النتيجة 🏁':'السؤال التالي ◀')+'</button>'}
+ h+='</div><footer>ببساطة – مستر محمد سيد ومس نورهان إبراهيم</footer>';app.innerHTML=h}
+function pick(i){if(ans[cur]!==null)return;ans[cur]=i;show()}
+function next(){if(cur==N-1)finish();else{cur++;show();scrollTo(0,0)}}
+function finish(){clearInterval(tm);const sc=ans.filter((v,i)=>v===Q[i].a).length,un=ans.filter(v=>v===null).length,wr=N-sc-un,C=2*Math.PI*70;
+ const pc=sc/N,m=pc>=.8?'ممتاز! 🌟':pc>=.6?'جيد جدًا 👏':pc>=.4?'جيد، استمر في التدريب 💪':'تحتاج مزيدًا من التدريب 📚';
+ let map='';Q.forEach((q,i)=>{map+='<b style="background:'+(ans[i]===null?'#9aa3b5':ans[i]===q.a?'#2e7d32':'#c62828')+'">'+(i+1)+'</b>'});
+ app.innerHTML='<div class="card res"><h2>نتيجتك</h2><svg class="ring" viewBox="0 0 170 170"><circle cx="85" cy="85" r="70" stroke="#e3e7f0"/><circle id="rg" cx="85" cy="85" r="70" stroke="#d4a017" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" transform="rotate(-90 85 85)" style="transition:1.4s"/><text x="85" y="95" text-anchor="middle" font-size="36" font-weight="700" fill="#0b1d3a">'+sc+' / '+N+'</text></svg><h2>'+m+'</h2><div class="st"><span style="color:#2e7d32">✔ '+sc+' صحيحة</span><span style="color:#c62828">✘ '+wr+' خاطئة</span><span style="color:#667">— '+un+' بلا إجابة</span></div><div class="map">'+map+'</div><div style="color:#667;font-size:14px">الوقت المستغرق: '+fmt(T-left)+'</div><button class="btn nx" onclick="start(MODE)">إعادة الاختبار 🔄</button><br><button class="btn nx" style="background:#e3e7f0;font-size:15px" onclick="splash()">الصفحة الرئيسية</button></div><footer>مقدم من صفحة ببساطة – إعداد مستر محمد سيد ومس نورهان إبراهيم</footer>';
+ setTimeout(()=>{const r=$('rg');if(r)r.style.strokeDashoffset=C*(1-sc/N)},80)}
+splash();
+</script></body></html>
